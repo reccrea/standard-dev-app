@@ -13,8 +13,8 @@ dist
 .eslintrc.js
 prettier.config.js
 /src/mock/*
- 
- 
+
+# Logs
 logs
 *.log
 npm-debug.log*
@@ -22,14 +22,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
- 
+
 .DS_Store
 dist-ssr
 *.local
- 
+
 /cypress/videos/
 /cypress/screenshots/
- 
+
 # Editor directories and files
 .vscode
 !.vscode/extensions.json
@@ -38,5 +38,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
- 
+
 components.d.ts

@@ -7,12 +7,12 @@ module.exports = {
 			[
 				// 编译相关的修改，例如发布版本，对项目构建或者依赖的改动
 				'build',
-				// 新功能
+				// 新功能(feature)
 				'feat',
 				// 修复bug
 				'fix',
 				// 更新某功能
-				'upd',
+				'update',
 				// 重构
 				'refactor',
 				// 文档

@@ -11,7 +11,9 @@
     "prepare": "husky install",
     "lint": "eslint \"src/**/*.{js,vue,ts}\" --fix",
     "prettier-format": "prettier --config .prettierrc.cjs \"src/**/*.{vue,js,ts}\" --write",
-    "lint:css": "stylelint **/*.{vue,css,sass,scss} --fix"
+    "lint:css": "stylelint **/*.{vue,css,sass,scss} --fix",
+    "build:pre": "vue-tsc --noEmit && vite build --mode staging",
+    "build:pro": "vue-tsc --noEmit && vite build --mode production"
   },
   "dependencies": {
     "vue": "^3.2.45"
@@ -37,9 +39,13 @@
     "postcss-html": "^1.5.0",
     "prettier": "^2.8.4",
     "stylelint": "^15.2.0",
+    "stylelint-config-recommended-less": "^1.0.4",
+    "stylelint-config-recommended-scss": "^9.0.1",
     "stylelint-config-recommended-vue": "^1.4.0",
     "stylelint-config-standard": "^30.0.1",
     "stylelint-config-standard-scss": "^7.0.1",
+    "stylelint-less": "^1.0.6",
+    "stylelint-scss": "^4.4.0",
     "typescript": "^4.9.5",
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
@@ -48,11 +54,11 @@
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
-      "pnpm run lint",
-      "pnpm run prettier-format"
+      "npm run lint",
+      "npm run prettier-format"
     ],
     "*.{vue,less,css,scss,sass}": [
-      "pnpm run lint:css"
+      "npm run lint:css"
     ]
   }
 }

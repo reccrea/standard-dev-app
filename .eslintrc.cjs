@@ -15,11 +15,7 @@ module.exports = {
 	// eslint-config-airbnb-base提供的
 	// eslint-config-prettier提供的
 	// 前缀 eslint-config-, 可省略
-	extends: [
-		'plugin:vue/vue3-strongly-recommended', 
-		'airbnb-base', 
-		'prettier'
-	],
+	extends: ['plugin:vue/vue3-strongly-recommended', 'airbnb-base', 'prettier'],
 	// eslint 会对我们的代码进行检验
 	// parser的作用是将我们写的代码转换为ESTree（AST）
 	// ESLint会对ESTree进行校验
@@ -48,17 +44,12 @@ module.exports = {
 	// 前缀 eslint-plugin-, 可省略
 	// vue官方提供了一个ESLint插件 eslint-plugin-vue，它提供了parser和rules
 	// parser为 vue-eslint-parser，放在上面的parsr字段，rules放在extends字段里，选择合适的规则
-	plugins: [
-		'vue', 
-		'@typescript-eslint'
-	],
+	plugins: ['vue', '@typescript-eslint'],
 	settings: {
 		// 设置项目内的别名
 		'import/reslover': {
 			alias: {
-				map: [
-					['@', './src']
-				],
+				map: [['@', './src']],
 			},
 		},
 		// 允许的扩展名
@@ -66,6 +57,7 @@ module.exports = {
 	},
 	// 自定义规则，覆盖上面extends继承的第三方库的规则，根据组内成员灵活定义
 	rules: {
+		'no-console': 0,
 		'import/no-extraneous-dependencies': 0,
 		'no-param-reassing': 0,
 		'vue/multi-word-commponent-names': 0,

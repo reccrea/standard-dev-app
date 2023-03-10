@@ -16,7 +16,7 @@ pnpm create vite development-app --template vue-ts
 修改vite.config.ts，修改域名端口，自动打开浏览器
 server: {
     host: 'localhost',
-    port: 8888,
+    port: 7070,
     open: true
 }
 ```
@@ -349,8 +349,8 @@ package.json文件中，添加
 
 "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
-      "pnpm run lint",
-      "pnpm run prettier-format"
+      "npm run lint",
+      "npm run prettier-format"
     ]
   }
 
@@ -418,3 +418,136 @@ module.exports = {
 - commit-msg：由 git commit 或 git merge 调用
 - pre-merge-commit：由 git merge 调用，在 merge 之前执行
 - pre-push：被 git push 调用，在 git push 之前执行，防止进行推送
+
+#### 7. `stylelint`钩子
+
+> CSS 检查器(linter)，帮助我们规避 CSS 代码中的错误并保持一致的编码风格
+>
+> https://stylelint.io/user-guide/get-started
+
+```
+stylelint CSS代码检查器(linter)
+
+1. 安装vscode插件，Stylelint
+2. 修改settings.json，添加下面代码
+{
+	"editor.codeActionsOnSave": {
+    "source.fixAll.stylelint": true
+  },
+	"stylelint.validate": [
+		"css",
+		"less",
+		"scss",
+		"vue"
+	],
+}
+3. 安装项目需要的校验库，（常见的规则包）
+pnpm install stylelint stylelint-config-standard -D
+
+4. 根目录下建立 .stylelintrc.cjs
+module.exports = {
+	extends: ['stylelint-config-standard'],
+};
+
+这是一个标准样式库，也可以自动添加一些样式规则在stylelintrc.cjs文件里面
+
+5. 执行 npx stylelint "**/*.css"
+发现项目里面的style.css全局样式文件，报错很多
+具体到对应的文件，按ctrl+s就会执行自动格式化我们在setting.json里面添加的语句（第2步）
+
+6. 增加vue里面的样式支持（附带less和scss的支持）
+对less的支持
+pnpm install stylelint-less stylelint-config-recommended-less -D
+
+对scss的支持
+pnpm install stylelint-scss stylelint-config-recommended-scss postcss -D
+
+
+pnpm install postcss-html stylelint-config-standard-scss stylelint-config-recommended-vue postcss -D （对vue里面样式的支持，vue的样式需要依赖前面这个库）
+
+Vite也同时提供了对 .scss .sass .less .styl .stylus 文件的内置支持，不需要再安装特定插件和预处理器
+
+extends: [
+	"stylelint-config-standard",
+	"stylelint-config-recommended-less",
+	"stylelint-config-recommended-scss",
+	"stylelint-config-recommended-vue"
+]
+
+scss的extends
+extends:[
+	"stylelint-config-standard-scss",
+	"stylelint-config-recommended-vue/scss"
+]
+
+7. package.json文件添加
+"lint:css": "stylelint **/*.{vue,css,sass,scss} --fix"
+
+8. 给vite添加插件
+pnpm install vite-plugin-stylelint -D
+
+修改vite.config.js文件
+import stylelitPlugin from 'vite-plugin-stylelint';
+
+plugins: [... stylelitPlugin()],
+
+9. 添加到lint-staged里面，在暂存区对文件进行格式化
+"lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "npm run lint",
+      "npm run prettier-format"
+    ],
+    "*.{vue,less,css,scss,sass}": [
+      "npm run lint:css"
+    ]
+  }
+
+10. 添加一个.stylelintignore文件
+/dist/*
+/public/*
+
+11. .stylelintrc.cjs内部的其他配置
+module.exports = {
+	extends: ['stylelint-config-standard', 'stylelint-config-recommended-vue'],
+	overrides: [
+		// 若项目中存在scss文件，添加以下配置
+		{
+			files: ['*.scss', '**/*.scss'],
+			customSyntax: 'postcss-scss',
+			extends: ['stylelint-config-recommended-scss'],
+		},
+		// 若项目中存在less文件，添加以下配置
+		{
+			files: ['*.less', '**/*.less'],
+			customSyntax: 'postcss-less',
+			extends: ['stylelint-config-recommended-less'],
+		},
+	],
+};
+```
+
+#### 8. 环境变量和模式
+
+> https://cn.vitejs.dev/guide/env-and-mode.html#modes
+
+> 开发环境 `dev`
+>
+> 测试使用 预发环境，`pre`
+>
+> 生产环境，`pro`
+
+```
+在package.json文件里面写上对应的脚本
+
+"build:pre": "vue-tsc --noEmit && vite build --mode staging",
+"build:pro": "vue-tsc --noEmit && vite build --mode production"
+
+新建文件
+.env
+.env.development
+.env.staging
+.env.production
+
+项目配置的内容
+文件内容 VITE_BASE_URL = 'http://yewu-pre.jd.com/api'
+```

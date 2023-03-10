@@ -8,7 +8,7 @@ export default defineConfig({
 	plugins: [vue(), eslintPlugin(), stylelitPlugin()],
 	server: {
 		host: 'localhost',
-		port: 9090,
+		port: 7070,
 		open: true,
 	},
 });

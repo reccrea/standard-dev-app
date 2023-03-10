@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
-import './style.css';
+
 import App from './App.vue';
 
-console.log(import.meta.env.VITE_BASE_UTL);
+const app = createApp(App);
 
-createApp(App).mount('#app');
+app.mount('#app');

@@ -14,4 +14,7 @@ module.exports = {
 			extends: ['stylelint-config-recommended-less'],
 		},
 	],
+	rules: {
+		'no-empty-source': null,
+	},
 };

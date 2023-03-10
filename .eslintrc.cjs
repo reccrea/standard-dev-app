@@ -58,6 +58,7 @@ module.exports = {
 	// 自定义规则，覆盖上面extends继承的第三方库的规则，根据组内成员灵活定义
 	rules: {
 		'no-console': 0,
+		'vue/valid-template-root': 0,
 		'import/no-extraneous-dependencies': 0,
 		'no-param-reassing': 0,
 		'vue/multi-word-commponent-names': 0,

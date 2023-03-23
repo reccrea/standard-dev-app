@@ -9,6 +9,7 @@ dist
 /public
 /docs
 .husky
+.history
 /bin
 .eslintrc.js
 prettier.config.js
